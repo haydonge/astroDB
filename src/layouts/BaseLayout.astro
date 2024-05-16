@@ -12,7 +12,7 @@ type Props = {
   description?: string;
 };
 
-const { title = "Dev Links", description = "Links for web developers." } =
+const { title = "订单管理", description = "Links for web developers." } =
   Astro.props;
 ---
 
@@ -42,12 +42,10 @@ const { title = "Dev Links", description = "Links for web developers." } =
       class="grid gap-10 sm:gap-16 min-h-screen grid-rows-auto_1fr_auto relative overflow-hidden"
     >
       <header class="grid place-items-center py-8">
-        <h1
-          class="text-theme-accent font-bold text-4xl [text-shadow:_0_10px_15px_black]"
-        >
-          Dev Links
+        <h1 class="text-theme-accent font-bold text-4xl [text-shadow:_0_10px_15px_black]">
+          订单管理系统
         </h1>
-        <Button intent="accent" id="open-dialog">Add Link</Button>
+        <Button intent="accent" id="open-dialog">增加订单</Button>
       </header>
       <main
         class="container after:absolute after:bg-theme-accent after:w-3/4 after:left-1/2 after:-translate-x-1/2 after:h-96 after:mix-blend-difference after:rounded-full after:-bottom-1/4 after:-z-50 after:blur-3xl after:opacity-40"

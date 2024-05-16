@@ -11,7 +11,7 @@ import TextInput from "./TextInput.astro";
   <div class="p-4 sm:p-8 grid gap-6">
     <form class="grid gap-4" id="add-form">
       <h2 class="text-xl text-theme-accent font-bold leading-tight">
-        Add a Link
+        增加订单
       </h2>
       <TextInput name="Link Title" inputId={Math.random()} />
       <TextArea name="Link Description" id={Math.random()} />
@@ -31,37 +31,40 @@ import TextInput from "./TextInput.astro";
 </dialog>
 
 <script>
+  // 获取表单元素和按钮元素
   const addForm = document.querySelector("#add-form") as HTMLFormElement;
-  const openDialogBtn = document.getElementById(
-    "open-dialog"
-  ) as HTMLButtonElement;
-  const closeDialogBtn = document.getElementById(
-    "close-dialog"
-  ) as HTMLButtonElement;
+  const openDialogBtn = document.getElementById("open-dialog" ) as HTMLButtonElement;
+  const closeDialogBtn = document.getElementById("close-dialog") as HTMLButtonElement;
   const dialog = document.querySelector("dialog") as HTMLDialogElement;
 
+  // 点击打开对话框按钮时显示对话框
   openDialogBtn.addEventListener("click", () => dialog.showModal());
-
+// 点击关闭对话框按钮时关闭对话框
   closeDialogBtn.addEventListener("click", () => dialog.close());
-
+// 点击对话框外部时关闭对话框
   dialog.addEventListener("click", (e) => {
     if (e.target === e.currentTarget) {
       dialog.close();
     }
   });
 
-  // form inputs
+  // form inputs 
+  //sanitize-html 是一个 JavaScript 模块，用于在用户提供的 HTML 中移除或转义潜在的不安全内容，
+  //以防止跨站脚本攻击（XSS）和其他安全漏洞。它的主要功能是对 HTML 进行清理和过滤，确保其中的内容
+  //符合安全标准。
   import sanitizeHtml from "sanitize-html";
+  // 提交表单时的事件监听器
   addForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     try {
+      // 获取表单数据
       const formData = new FormData(addForm);
       const title = sanitizeHtml(formData.get("link-title") as string);
-      const description = sanitizeHtml(
-        formData.get("link-description") as string
-      );
+      const description = sanitizeHtml(formData.get("link-description") as string );
       const url = sanitizeHtml(formData.get("link-url") as string);
       const isRead = formData?.get("isRead") === "on" ? true : false ?? false;
+      
+      // 检查表单数据类型并发送请求
       if (
         typeof title === "string" &&
         typeof description === "string" &&
@@ -79,9 +82,9 @@ import TextInput from "./TextInput.astro";
             isRead,
           }),
         });
-
+       // 处理请求的响应
         const { success, data, message } = await req.json();
-
+       // 如果请求成功，则重置表单并关闭对话框，刷新页面
         if (success) {
           addForm.reset();
           dialog.close();
@@ -90,7 +93,7 @@ import TextInput from "./TextInput.astro";
           throw new Error(message);
         }
       }
-    } catch (e) {
+    } catch (e) {       // 捕获异常并弹出警告
       if (e instanceof Error) {
         alert(e.message);
       }
