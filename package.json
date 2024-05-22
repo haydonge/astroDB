@@ -8,8 +8,7 @@
     "start": "astro dev",
     "build": "astro build --remote",
     "preview": "astro preview",
-    "astro": "astro",
-    "localdb": "node start-dev.js"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
