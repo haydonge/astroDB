@@ -1,0 +1,33 @@
+---
+import StockCard from "../components/ui/StockCard.astro"
+import BaseLayout from "src/layouts/BaseLayout.astro"
+import { Stockonhand } from "astro:db";
+// import { Link } from "astro:db";
+import { db } from "astro:db";
+import StockTable from "../components/ui/stockTable.astro"
+import UpdateDiaglog from "./UpdateDiaglog.astro";
+
+const columns = [
+  { label: 'ID', key: 'id' },
+  { label: 'PARTNUMBER', key: 'partnumber' },
+    { label: 'Description', key: 'description' },
+  { label: 'Qty', key: 'qty' },
+  { label: 'URL', key: 'url' },
+  { label: 'SafeQTY', key: 'safeqty' },
+];
+
+
+const Stocks = await db.select().from(Stockonhand);
+---
+
+<BaseLayout>
+  <div
+    class="grid gap-6 grid-cols-[repeat(auto-fit,_minmax(280px,_1fr))] items-start"
+  >
+    {Stocks.map((stock) => <StockCard stock={stock} />)}
+  </div>
+
+  <!-- <br>
+  <StockTable stocks={Stocks}/> -->
+  
+</BaseLayout>
