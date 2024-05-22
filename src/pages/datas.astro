@@ -5,7 +5,7 @@ import { Stockonhand } from "astro:db";
 // import { Link } from "astro:db";
 import { db } from "astro:db";
 import StockTable from "../components/ui/stockTable.astro"
-import UpdateDiaglog from "./UpdateDiaglog.astro";
+// import UpdateDiaglog from "./UpdateDiaglog.astro";
 
 const columns = [
   { label: 'ID', key: 'id' },
@@ -27,7 +27,7 @@ const Stocks = await db.select().from(Stockonhand);
     {Stocks.map((stock) => <StockCard stock={stock} />)}
   </div>
 
-  <!-- <br>
-  <StockTable stocks={Stocks}/> -->
+  <br>
+  <StockTable stocks={Stocks}/>
   
 </BaseLayout>
