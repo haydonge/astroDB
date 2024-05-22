@@ -24,15 +24,15 @@
 			"dest": "_render"
 		},
 		{
+			"src": "^\\/api\\/endpoint\\.json\\/?$",
+			"dest": "_render"
+		},
+		{
 			"src": "^\\/api\\/([^/]+?)\\.json\\/?$",
 			"dest": "_render"
 		},
 		{
 			"src": "^\\/datas\\/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^\\/endpoint\\.json\\/?$",
 			"dest": "_render"
 		},
 		{

@@ -1,14 +1,13 @@
-import { d as db, L as Link } from './_id__QXL5ARg1.mjs';
-import sanitize from 'sanitize-html';
+import { d as db, S as Stockonhand } from './_id__DtOgwdQZ.mjs';
 
 const POST = async ({ request }) => {
   const data = await request.json();
   try {
-    const { title, description, url, isRead } = data;
-    if (!title || !description || !url || typeof isRead !== "boolean") {
+    const { partnumber, description, qty, url, safeqty } = data;
+    if (!partnumber || !description || !url) {
       return new Response(
         JSON.stringify({
-          message: "Please provide all required fields.",
+          message: "Please provide all required fields 11.",
           success: false
         }),
         {
@@ -16,11 +15,12 @@ const POST = async ({ request }) => {
         }
       );
     }
-    const res = await db.insert(Link).values({
-      title: sanitize(title),
-      description: sanitize(description),
-      url: sanitize(url),
-      isRead
+    const res = await db.insert(Stockonhand).values({
+      partnumber,
+      description,
+      qty,
+      url,
+      safeqty
     });
     if (res) {
       return new Response(
