@@ -3,7 +3,9 @@ import { getImage } from "astro:assets";
 import dots from "@/assets/dots.png";
 import Footer from "../components/Footer.astro";
 import Button from "@/components/ui/Button.astro";
-import Dialog from "@/components/ui/Dialog.astro";
+// import Dialog from "@/components/ui/Dialog.astro";
+import Dialog2Stock from "@/components/ui/Dialog2stock.astro";
+import UpdateDiaglog from "@/components/ui/UpdateDiaglog.astro";
 
 const dotsImage = await getImage({ src: dots, format: "avif" });
 
@@ -21,7 +23,7 @@ const { title = "订单管理", description = "Links for web developers." } =
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <stock rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <meta name="msapplication-TileColor" content="#F46633" />
     <meta name="theme-color" content="#202020" />
@@ -53,7 +55,9 @@ const { title = "订单管理", description = "Links for web developers." } =
         <slot />
       </main>
       <Footer />
-      <Dialog />
+
+      <Dialog2Stock />
+      <!-- <UpdateDiaglog stock={null} /> -->
     </div>
     <div
       style={`background-image: url(${dotsImage.src}); -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, to(rgba(0,0,0,1)), from(rgba(0,0,0,0)))`}

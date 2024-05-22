@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { Link, db, eq } from "astro:db";
+import { Stockonhand, db, eq } from "astro:db";
 
 export const DELETE: APIRoute = async ({ params }) => {
   const id = Number(params.id);
@@ -17,7 +17,7 @@ export const DELETE: APIRoute = async ({ params }) => {
   }
 
   try {
-    const res = await db.delete(Link).where(eq(Link.id, id));
+    const res = await db.delete(Stockonhand).where(eq(Stockonhand.id, id));
     if (res) {
       return new Response(null, { status: 204 });
     } else {
@@ -37,44 +37,58 @@ export const DELETE: APIRoute = async ({ params }) => {
   }
 };
 
-export const PATCH: APIRoute = async ({ params, request }) => {
-  const { isRead } = await request.json();
-  const id = Number(params.id);
+// patch 功能我还没有动。。。。先存
 
-  if (!id) {
+export const PATCH: APIRoute = async ({ params, request }) => {
+  const { id } = params;
+  const { partnumber, description, qty, url, safeqty } = await request.json();
+
+  if (!id || !partnumber || !description || qty === undefined || !url || safeqty === undefined) {
     return new Response(
       JSON.stringify({
         message: "Please provide all required fields.",
         success: false,
       }),
       {
-        status: 404,
+        status: 400,
       }
     );
   }
 
   try {
-    const res = await db.update(Link).set({ isRead }).where(eq(Link.id, id));
+    const res = await db
+      .update(Stockonhand)
+      .set({
+        partnumber,
+        description,
+        qty: Number(qty),
+        url,
+        safeqty: Number(safeqty),
+      })
+      .where(eq(Stockonhand.id, Number(id)));
 
     if (res) {
       return new Response(
         JSON.stringify({
-          message: "success",
+          message: "Update successful",
           success: true,
-        })
+        }),
+        {
+          status: 200,
+        }
       );
     } else {
-      throw new Error("prob, bob");
+      throw new Error("Update failed");
     }
   } catch (e) {
     console.error(e);
     return new Response(
       JSON.stringify({
-        message: e,
+        message: e.message,
         success: false,
       }),
       {
-        status: 404,
+        status: 500,
       }
     );
   }
