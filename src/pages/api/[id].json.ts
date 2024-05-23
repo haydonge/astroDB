@@ -81,10 +81,10 @@ export const PATCH: APIRoute = async ({ params, request }) => {
       throw new Error("Update failed");
     }
   } catch (e) {
-    console.error(e);
+    console.error("Patch ERROR");
     return new Response(
       JSON.stringify({
-        message: e.message,
+        message: e.message ||"Internal Server Error",
         success: false,
       }),
       {
