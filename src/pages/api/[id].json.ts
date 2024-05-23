@@ -80,7 +80,7 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     } else {
       throw new Error("Update failed");
     }
-  } catch (e) {
+  } catch (e:any) {
     console.error("Patch ERROR");
     return new Response(
       JSON.stringify({
