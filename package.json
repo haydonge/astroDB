@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "dev-db": "astro dev --remote",
     "start": "astro dev",
-    "build": "astro build --remote",
+    "build": "astro check && astro build --remote",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -26,7 +26,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sanitize-html": "^2.12.1",
-    "tailwind-merge": "^2.2.1",
+    "tailwind-merge": "^2.3.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.5"
   },
