@@ -5,51 +5,6 @@ import { Link } from "astro:db";
 import { db } from "astro:db";
 
 const links = await db.select().from(Link);
-
-
-// import Table from '../components/ui/Table.astro';
-
-// const columns = [
-//   { label: 'ID', key: 'id' },
-//   { label: 'Title', key: 'title' },
-//   { label: 'URL', key: 'url' },
-//   { label: 'Description', key: 'description' },
-//   { label: 'Is Read', key: 'isRead' },
-// ];
-
-// async function deleteStock(id) {
-//   const response = await fetch('/api/deleteStock', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ id }),
-//   });
-
-//   if (response.ok) {
-//     console.log("l.....")
-//   } else {
-//     console.error('Failed to delete stock');
-//   }
-// }
-
-// async function editStock(stock) {
-//   // Open a modal or form to edit the stock (implementation not shown here)
-//   // Once edited, send the updated data to the server
-//   const response = await fetch('/api/editStock', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(stock),
-//   });
-
-//   if (response.ok) {
-//     console.log("l.....333")
-//   } else {
-//     console.error('Failed to edit stock');
-//   }
-// }
 ---
 
 <BaseLayout>
@@ -58,6 +13,4 @@ const links = await db.select().from(Link);
   >
     {links.map((link) => <LinkCard link={link} />)}
   </div>
-
-  <!-- <Table columns={columns} data={links} onDelete={deleteStock} onEdit={editStock}/> -->
 </BaseLayout>
