@@ -1,20 +1,18 @@
 ---
 import StockCard from "../components/ui/StockCard.astro"
-import BaseLayout from "src/layouts/BaseLayout.astro"
+import BaseLayout from "../layouts/BaseLayout.astro"
 import { Stockonhand } from "astro:db";
-// import { Link } from "astro:db";
 import { db } from "astro:db";
 import StockTable from "../components/ui/stockTable.astro"
-// import UpdateDiaglog from "./UpdateDiaglog.astro";
 
-const columns = [
-  { label: 'ID', key: 'id' },
-  { label: 'PARTNUMBER', key: 'partnumber' },
-    { label: 'Description', key: 'description' },
-  { label: 'Qty', key: 'qty' },
-  { label: 'URL', key: 'url' },
-  { label: 'SafeQTY', key: 'safeqty' },
-];
+// const columns = [
+//   { label: 'ID', key: 'id' },
+//   { label: 'PARTNUMBER', key: 'partnumber' },
+//     { label: 'Description', key: 'description' },
+//   { label: 'Qty', key: 'qty' },
+//   { label: 'URL', key: 'url' },
+//   { label: 'SafeQTY', key: 'safeqty' },
+// ];
 
 
 const Stocks = await db.select().from(Stockonhand);
