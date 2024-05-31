@@ -138,7 +138,7 @@ const filteredStocks =  defaultStocks;
                 <td class="py-2">${qty}</td>
                 <td class="py-2">${safeqty}</td>
                 <td class="py-2"> <a href=${url} class="text-blue-500 hover:underline mr-4"> Link </a> </td>
-                <td> <button
+                <td>  <button
                   data-update
                   data-id=${id}
                   data-partnumber=${partnumber}
@@ -190,7 +190,7 @@ const filteredStocks =  defaultStocks;
 
         //selector
         const updateBtns = document.querySelectorAll("data-update");
-        const dialog4 = document.getElementById("dialog2");
+        const dialog2 = document.getElementById("dialog2");
         
         updateBtns.forEach((btn) => {
           btn.addEventListener("click", (e) => {
@@ -203,9 +203,9 @@ const filteredStocks =  defaultStocks;
             safeqty: btn.getAttribute("data-safeqty"),
         };
 
-        if (dialog4) {
+        if (dialog2) {
           // 动态更新对话框内容
-          const form = dialog4.querySelector("form");
+          const form = dialog2.querySelector("form");
           form.querySelector("[name='id']").value = stock.id;
           form.querySelector("[name='partnumber']").value = stock.partnumber;
           form.querySelector("[name='description']").value = stock.description;
@@ -214,7 +214,7 @@ const filteredStocks =  defaultStocks;
           form.querySelector("[name='safeqty']").value = stock.safeqty;
 
           // 显示对话框
-          dialog4.showModal();
+          dialog2.showModal();
         }
       });
     });

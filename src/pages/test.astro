@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import StockTable from "../components/ui/stockTable.astro";
 import { Stockonhand } from "astro:db";
 import { db } from "astro:db";
+
 import Button from "@/components/ui/Button.astro";
 type Stockt = {
   id: number;
@@ -19,16 +20,10 @@ interface Props {
 }
 
 const { stock } = Astro.props as Props;
-
-
 // 从数据库获取默认数据
 const defaultStocks = await db.select().from(Stockonhand);
-
-// 从 props 中获取 stocks 数据，如果没有传入，则使用默认数据
-// const { stocks: externalStocks } = Astro.props;
-
 const filteredStocks =  defaultStocks;
-// console.log(Stocks);
+
 ---
 
 <BaseLayout>
@@ -57,12 +52,28 @@ const filteredStocks =  defaultStocks;
 
     <p id="searchReadout"> </p>
   </main>
-  
+     
   <section aria-label="Search Results">
-    <ul id="searchResults"></ul>
+      <table class="min-w-full small-text ">
+        <thead>
+          <tr class="text-center  small-text">
+            <th class="py-2">ID</th>
+            <th class="py-2">Part Number</th>
+            <th class="py-2">Description</th>
+            <th class="py-2">Qty</th>
+            <th class="py-2">SafeQty</th>
+            <th class="py-2">URL</th>
+            <th class="py-2">Action</th>
+            
+        </thead>
+        <tbody id="searchResults" />
+      
+      </table>
+
   <div id="stockTableContainer">
-  <StockTable stocks={filteredStocks}/>
+  <!-- <StockTable stocks={filteredStocks}/> -->
 </div>
+
 </section>
   <!-- <divclass="grid gap-6 grid-cols-[repeat(auto-fit,_minmax(280px,_1fr))] items-start"  >
     {filteredStocks.map((item:any) => <StockCard stock={item} />)}
@@ -73,18 +84,18 @@ const filteredStocks =  defaultStocks;
   //selector
   const search = document.querySelector("#search");
   const searchsubmit =document.querySelector("#form1") as HTMLFormElement;
-  const searchResults =document.querySelector("#searchResults");
+  const searchResult =document.querySelector("#searchResults")
 
-  // const SPINNER = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#d70f0f" viewBox="0 0 256 256" id="spinner"><path d="M236,128a108,108,0,0,1-216,0c0-42.52,24.73-81.34,63-98.9A12,12,0,1,1,93,50.91C63.24,64.57,44,94.83,44,128a84,84,0,0,0,168,0c0-33.17-19.24-63.43-49-77.09A12,12,0,1,1,173,29.1C211.27,46.66,236,85.48,236,128Z"></path><style>
-	// 			#spinner {
-	// 				animation: spin 1s linear infinite;
-	// 			}
-	// 			@keyframes spin {
-	// 				100% {
-	// 					transform: rotate(360deg);
-	// 				}
-	// 			}
-	// 			</style></svg>`;
+  const SPINNER = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#d70f0f" viewBox="0 0 256 256" id="spinner"><path d="M236,128a108,108,0,0,1-216,0c0-42.52,24.73-81.34,63-98.9A12,12,0,1,1,93,50.91C63.24,64.57,44,94.83,44,128a84,84,0,0,0,168,0c0-33.17-19.24-63.43-49-77.09A12,12,0,1,1,173,29.1C211.27,46.66,236,85.48,236,128Z"></path><style>
+				#spinner {
+					animation: spin 1s linear infinite;
+				}
+				@keyframes spin {
+					100% {
+						transform: rotate(360deg);
+					}
+				}
+				</style></svg>`;
 
   type Stockt = {
   id: number;
@@ -95,57 +106,17 @@ const filteredStocks =  defaultStocks;
   safeqty: number;
 };
 
-  let SEARCH_DATA = [];
-
-  import sanitizeHtml from "sanitize-html";
-  import DOMPurify from "dompurify";
+  // let SEARCH_DATA;
+      
+      import sanitizeHtml from "sanitize-html";
+      import DOMPurify from "dompurify"
   
 
     function    updateDocumentTitle(search) {
       document.title = search
       ?`Search Result for "${search}"`:"Searchthe database";
     }
-     
-    // function generateSearchList(results){
-    //   return results.map((r) => {
-    //     const {id, partnumber ,description,qty,url, safeqty} =r.item;
-    //     return `
-    //     <tr {id} class="border-t">
-    //     <th class="py-2">{.partnumber}</th>
-    //     <th class="py-2">{.description}</th>
-    //     <th class="py-2">{.qty}</th>
-    //     <th class="py-2">{.safeqty}</th>
-    //     <th class="py-2">
-    //       <a href={url} class="text-blue-500 hover:underline mr-4">
-    //         Open Link
-    //       </a> 
-    //       </th>
-    //       <th>
-    //       <button
-    //         class="text-red-500 hover:text-red-700"
-    //         open-dialog
-    //         data-id={id}
-    //         aria-label={`Update Link: ${r.partnumber}`}
-    //       >
-          
-    //         <Icon name="check" size={24} /> 
-          
-    //       </button>
 
-    //       <button
-    //         class="text-red-500 hover:text-red-700"
-    //         data-delete
-    //         data-id={stock.id}
-    //         aria-label={`Delete Link: ${r.partnumber}`}
-    //       >
-    //         <Icon name="trash" size={24} />
-    //       </button>
-    //     </th>
-    //   </tr>
-    //    `
-    //   }
-    // )
-    // }
 
 
      function updateSearchPageURL(search) {
@@ -155,10 +126,42 @@ const filteredStocks =  defaultStocks;
        }
 
 
+       function generateSearchList(result){
+    return result.map((r) => {
+        const { id, partnumber, description, qty, url, safeqty  } = r;
+
+        return `
+            <tr  class="text-center">
+                <td class="py-2">${id}</td>
+                <td class="py-2">${partnumber}</td>
+                <td class="py-2">${description}</td>
+                <td class="py-2">${qty}</td>
+                <td class="py-2">${safeqty}</td>
+                <td class="py-2"> <a href=${url} class="text-blue-500 hover:underline mr-4"> Link </a> </td>
+                <td> <button
+                  data-update
+                  data-id=${id}
+                  data-partnumber=${partnumber}
+                  data-description=${description}
+                  data-qty=${qty}
+                  data-url=${url}
+                  data-safeqty=${safeqty}
+                  classes="absolute -right-1 -bottom-1 border-4 border-theme-base hover:scale-105 active:scale-95 ring-offset-2"
+                  aria-label={"Update Link: ${partnumber}"}
+                  class="text-red-500 hover:text-red-700"
+                }> update </button>
+                </td>
+            </tr>
+        `;
+    }).join(" ");
+}
+
+      
+      
 
     async function fetchSearchResults(search_word:string) {
 				if (search_word.length === 0) return;
-				 // searchResult.innerHTML =SPINNER;
+				  // searchResult.innerHTML =SPINNER;
 					try {
 						const res =  await fetch(`/api/searchdata.json`,{
               method: "SEARCH",
@@ -166,10 +169,11 @@ const filteredStocks =  defaultStocks;
               body: JSON.stringify(search_word )
               });
             const { success, data, message } = await res.json();
-						SEARCH_DATA = data;
+						const results = data;
             // updateStockTable(SEARCH_DATA);
-            console.log(SEARCH_DATA);
-            // searchResult?.innerHTML=  SEARCH_DATA.length >0 ? generateSearchList(data):"No Result Found";
+            console.log(results);
+            searchResult.innerHTML = results.length >0 ? generateSearchList(results): "Not Found Data"
+					} catch (e) {
 						console.error(e);
 					}		
 			}
@@ -177,19 +181,53 @@ const filteredStocks =  defaultStocks;
 
 
      window.addEventListener("DOMContentLoaded", () => {
-       const urlParams = 
-         new URLSearchParams(window.location.search).get("q") as string ;
+       const urlParams = DOMPurify.sanitize(
+         new URLSearchParams(window.location.search).get("q") as string );
         fetchSearchResults(urlParams);
         updateDocumentTitle(urlParams);
         search.value =urlParams;
         search.focus();
+
+        //selector
+        const updateBtns = document.querySelectorAll("data-update");
+        const dialog4 = document.getElementById("dialog2");
+        
+        updateBtns.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+          const stock = {
+            id: btn.getAttribute("data-id"),
+            partnumber: btn.getAttribute("data-partnumber"),
+            description: btn.getAttribute("data-description"),
+            qty: btn.getAttribute("data-qty"),
+            url: btn.getAttribute("data-url"),
+            safeqty: btn.getAttribute("data-safeqty"),
+        };
+
+        if (dialog4) {
+          // 动态更新对话框内容
+          const form = dialog4.querySelector("form");
+          form.querySelector("[name='id']").value = stock.id;
+          form.querySelector("[name='partnumber']").value = stock.partnumber;
+          form.querySelector("[name='description']").value = stock.description;
+          form.querySelector("[name='qty']").value = stock.qty;
+          form.querySelector("[name='url']").value = stock.url;
+          form.querySelector("[name='safeqty']").value = stock.safeqty;
+
+          // 显示对话框
+          dialog4.showModal();
+        }
+      });
+    });
+
+
+
        });
      
 
       searchsubmit.addEventListener("submit", async (e) => {
         e.preventDefault();
        try {
-        const searchValue = DOMPurify.sanitize(search.value);
+        const searchValue = DOMPurify.sanitize(search.value)
         updateDocumentTitle(searchValue);
         const urlParams = new URLSearchParams(window.location.search).get("q") ;
 				fetchSearchResults(searchValue);
