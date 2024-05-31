@@ -7,7 +7,7 @@ import NumberInput from "./NumberInput.astro";
 
 ---
 
-<dialog id="dialog1">
+<dialog id="dialog1" style="background-color: rgb(60, 61, 63);width :30%;">
   <div class="p-4 sm:p-8 grid gap-6">
     <form class="grid gap-4" id="add-form">
       <h2 class="text-xl text-theme-accent font-bold leading-tight">
@@ -26,7 +26,7 @@ import NumberInput from "./NumberInput.astro";
       
       <!-- <Checkbox checked={false} inputId={Math.random()} name="isRead" /> -->
       <div class="flex gap-4 flex-wrap">
-        <Button intent="primary" id="close-dialog" type="button">Close</Button>
+        <Button intent="primary" id="close-dialog1" type="button">Close</Button>
         <Button intent="accent" type="submit">Add Link</Button>
       </div>
     </form>
@@ -37,7 +37,7 @@ import NumberInput from "./NumberInput.astro";
   // 获取表单元素和按钮元素
   const addForm1 = document.querySelector("#add-form") as HTMLFormElement;
   const openDialogBtn1 = document.getElementById("open-dialog" ) as HTMLButtonElement;
-  const closeDialogBtn1 = document.getElementById("close-dialog") as HTMLButtonElement;
+  const closeDialogBtn1 = document.getElementById("close-dialog1") as HTMLButtonElement;
   const dialog1 = document.getElementById("dialog1") as HTMLDialogElement;
 
   // 点击打开对话框按钮时显示对话框

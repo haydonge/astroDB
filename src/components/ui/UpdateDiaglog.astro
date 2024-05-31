@@ -15,10 +15,10 @@ interface Props {
 const { stock } = Astro.props as Props;
 ---
 
-<dialog id="dialog2">
-  <div class="bg-theme-base text-theme-text shadow-xl rounded-md w-full max-w-sm backdrop:bg-black/60">
+<dialog id="dialog2" style="background-color: rgb(60, 61, 63);width :30%;">
+  <div class=" text-theme-text shadow-xl rounded-md w-full max-w-x backdrop:bg-black/60">
     <div class="p-4 sm:p-8 grid gap-6">
-      <form class="grid gap-4" id="update-form">
+      <form class="grid gap-4" id="update-form" >
         <h2 class="text-xl text-theme-accent font-bold leading-tight">修改库存</h2>
         <div class="grid gap-2">
           <div class="flex items-center gap-2">

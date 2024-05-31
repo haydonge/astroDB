@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { Stockonhand, db, eq } from "astro:db";
 
+
 export const DELETE: APIRoute = async ({ params }) => {
   const id = Number(params.id);
 

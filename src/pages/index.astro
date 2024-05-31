@@ -3,7 +3,7 @@ import LinkCard from "@/components/LinkCard.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Link } from "astro:db";
 import { db } from "astro:db";
-
+import Datas from "./datas.astro";
 const links = await db.select().from(Link);
 ---
 

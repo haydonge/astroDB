@@ -5,7 +5,8 @@ import Footer from "../components/Footer.astro";
 import Button from "@/components/ui/Button.astro";
 import Dialog2Stock from "../components/ui/Dialog2stock.astro";
 import Uploadexcel from "../components/ui/Uploadgooglesheet.astro";
-
+import Search2Data from "@/components/ui/Search2data.astro";
+import UpdateDiaglog from "../components/ui/UpdateDiaglog.astro"
 const dotsImage = await getImage({ src: dots, format: "avif" });
 
 const { title = "订单管理", description = "Links for web developers." } = Astro.props;
@@ -46,9 +47,14 @@ const { title = "订单管理", description = "Links for web developers." } = As
         class="container after:absolute after:bg-theme-accent after:w-3/4 after:left-1/2 after:-translate-x-1/2 after:h-96 after:mix-blend-difference after:rounded-full after:-bottom-1/4 after:-z-50 after:blur-3xl after:opacity-40"
       >
         <slot />
+        <br>
+        <br>
       <Footer />
       <Dialog2Stock />
       <Uploadexcel />
+      <Search2Data />
+      <UpdateDiaglog />
+      
       </main>
       
     </div>

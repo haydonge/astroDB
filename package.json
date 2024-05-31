@@ -20,6 +20,7 @@
     "astro": "^4.9.1",
     "astro-icon": "^1.1.0",
     "class-variance-authority": "^0.7.0",
+    "dompurify": "^3.1.4",
     "exceljs": "^4.4.0",
     "multer": "^1.4.5-lts.1",
     "sanitize-html": "^2.12.1",
