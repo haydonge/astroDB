@@ -3,7 +3,7 @@ import { e as createAstro, f as createComponent, r as renderTemplate, m as maybe
 import 'kleur/colors';
 import { cva } from 'class-variance-authority';
 import 'clsx';
-import { $ as $$Icon, a as $$Button, b as $$BaseLayout } from './datas_rV8AlE7L.mjs';
+import { $ as $$Icon, a as $$Button, b as $$BaseLayout } from './datas_BNaZKPUe.mjs';
 import { d as db, L as Link } from './_id__DLXKWOuF.mjs';
 
 const $$Astro$2 = createAstro();

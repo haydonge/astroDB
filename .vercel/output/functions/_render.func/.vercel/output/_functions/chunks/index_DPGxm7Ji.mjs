@@ -1,5 +1,5 @@
 export { renderers } from '../renderers.mjs';
 
-const page = () => import('./pages/test_phpfkJVi.mjs');
+const page = () => import('./pages/index_BiEANapK.mjs');
 
 export { page };
